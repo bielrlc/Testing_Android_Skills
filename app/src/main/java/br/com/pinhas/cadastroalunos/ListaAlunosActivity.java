@@ -23,11 +23,21 @@ public class ListaAlunosActivity extends AppCompatActivity {
         this.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
         this.minhaLista.setAdapter(adapter);
 
-        //tentando criar um evento de click em um item da lista
+        //criando um evento de click em um item da lista
         this.minhaLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "posição selecionada" + position, Toast.LENGTH_LONG).show();
+                Toast.makeText(ListaAlunosActivity.this, "posição selecionada: " + position, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //criando um evento de click longo em um item da lista
+        this.minhaLista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String nome = (String) parent.getItemAtPosition(position);
+                Toast.makeText(ListaAlunosActivity.this, "nome: " + nome, Toast.LENGTH_LONG).show();
+                return false;
             }
         });
     }
