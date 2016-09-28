@@ -15,9 +15,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_alunos);
 
         //preenchendo a lista com um vetor de Strings
-        String[] alunos = {"Gabriel, Felipe, Edward"};
+        String[] alunos = {"Gabriel", "Felipe", "Edward"};
         this.lista_alunos = (ListView) findViewById(R.id.lista_alunos);
         this.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        this.lista_alunos.setAdapter(adapter);
 
     }
 }
