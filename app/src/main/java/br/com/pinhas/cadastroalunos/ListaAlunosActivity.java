@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     private ListView minhaLista;
     private ArrayAdapter<String> adapter;
+    private Button botao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 String nome = (String) parent.getItemAtPosition(position);
                 Toast.makeText(ListaAlunosActivity.this, "nome: " + nome, Toast.LENGTH_LONG).show();
                 return false;
+            }
+        });
+
+        //criando um listener para o botão adicionar
+        botao = (Button) findViewById(R.id.lista_alunos_floating_button);
+        botao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ListaAlunosActivity.this, "Floating button clicado", Toast.LENGTH_LONG).show();
             }
         });
     }
