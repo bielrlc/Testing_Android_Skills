@@ -1,5 +1,6 @@
 package br.com.pinhas.cadastroalunos;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +30,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         this.minhaLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "posição selecionada: " + position, Toast.LENGTH_LONG).show();
+                Toast.makeText(ListaAlunosActivity.this, "posição selecionada: " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -38,17 +39,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String nome = (String) parent.getItemAtPosition(position);
-                Toast.makeText(ListaAlunosActivity.this, "nome: " + nome, Toast.LENGTH_LONG).show();
+                Toast.makeText(ListaAlunosActivity.this, "nome: " + nome, Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-        //criando um listener para o botão adicionar
-        botao = (Button) findViewById(R.id.lista_alunos_floating_button);
-        botao.setOnClickListener(new View.OnClickListener() {
+        //criando um listener para o botão adicionar ir para formulario de cadastro
+        this.botao = (Button) findViewById(R.id.lista_alunos_floating_button);
+        this.botao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ListaAlunosActivity.this, "Floating button clicado", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intent);
             }
         });
     }
