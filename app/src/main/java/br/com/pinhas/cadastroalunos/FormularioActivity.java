@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.com.pinhas.cadastroalunos.modelo.Aluno;
+
 public class FormularioActivity extends AppCompatActivity {
 
-    private EditText nome;
     private Button botaoSalvar;
     //atributo que representa a classe responsável por pegar as informações do formulário
     private FormularioHelper helper;
@@ -19,16 +20,16 @@ public class FormularioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
         //instanciando o helper para ser possível gravar as informações do formulário
-        this.helper = new FormularioHelper(this);
-        //informando o nome cadastrado
-        this.nome = (EditText) findViewById(R.id.formulario_nome);
         this.botaoSalvar = (Button) findViewById(R.id.salvar);
+        this.helper = new FormularioHelper(this);
 
         this.botaoSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(FormularioActivity.this, nome.getText().toString() + " Salvo", Toast.LENGTH_SHORT).show();
+                Aluno aluno = helper.getAlunoFromForm();
+                Toast.makeText(FormularioActivity.this, aluno.getNome() + " Salvo !!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
