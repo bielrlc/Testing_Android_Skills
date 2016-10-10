@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import br.com.pinhas.cadastroalunos.dao.AlunoDAO;
 import br.com.pinhas.cadastroalunos.modelo.Aluno;
 
 public class FormularioActivity extends AppCompatActivity {
@@ -29,6 +30,10 @@ public class FormularioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Aluno aluno = helper.getAlunoFromForm();
+
+                AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
+                dao.insere(aluno);
+                dao.close();
                 Toast.makeText(FormularioActivity.this, aluno.getNome() + " Salvo !!", Toast.LENGTH_SHORT).show();
                 finish();
             }

@@ -14,8 +14,8 @@ import br.com.pinhas.cadastroalunos.modelo.Aluno;
 public class AlunoDAO extends SQLiteOpenHelper {
 
     private static final int VERSION = 1;
-    private static final String DATABASE = "Cadastro_Burro";
-    private static final String TABELA = "Aluno";
+    private static final String DATABASE = "Burro_System";
+    private static final String TABELA = "Alunos";
 
     public AlunoDAO(Context context) {
         super(context, DATABASE, null, VERSION);
@@ -45,5 +45,11 @@ public class AlunoDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put("nome", aluno.getNome());
+        values.put("telefone", aluno.getTelefone());
+        values.put("endereco", aluno.getEndereco());
+        values.put("site", aluno.getSite());
+        values.put("nota", aluno.getNota());
+
+        getWritableDatabase().insert(TABELA, null, values);
     }
 }
