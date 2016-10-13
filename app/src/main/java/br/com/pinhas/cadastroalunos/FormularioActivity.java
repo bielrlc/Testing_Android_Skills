@@ -31,11 +31,15 @@ public class FormularioActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Aluno aluno = helper.getAlunoFromForm();
 
-                AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
-                dao.insere(aluno);
-                dao.close();
-                Toast.makeText(FormularioActivity.this, aluno.getNome() + " Salvo !!", Toast.LENGTH_SHORT).show();
-                finish();
+                if (helper.temNome()) {
+                    AlunoDAO dao = new AlunoDAO(FormularioActivity.this);
+                    dao.insere(aluno);
+                    dao.close();
+                    Toast.makeText(FormularioActivity.this, aluno.getNome() + " Salvo !!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    helper.showError();
+                }
             }
         });
     }

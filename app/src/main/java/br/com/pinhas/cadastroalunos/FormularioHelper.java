@@ -42,5 +42,11 @@ public class FormularioHelper {
     }
 
     //implementar o método de validação se o usuário a ser adicionado tem nome
+    public boolean temNome(){
+        return !nome.getText().toString().isEmpty();
+    }
 
+    public void showError(){
+        nome.setError("Campo não pode ser vazio");
+    }
 }
