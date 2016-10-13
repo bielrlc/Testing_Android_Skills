@@ -2,8 +2,12 @@ package br.com.pinhas.cadastroalunos.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.pinhas.cadastroalunos.modelo.Aluno;
 
@@ -41,6 +45,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    //insere no banco de Dados um novo Aluno, conforme passado às informações deste através da classe Aluno
     public void insere(Aluno aluno){
         ContentValues values = new ContentValues();
 
@@ -51,5 +56,28 @@ public class AlunoDAO extends SQLiteOpenHelper {
         values.put("nota", aluno.getNota());
 
         getWritableDatabase().insert(TABELA, null, values);
+    }
+
+    //retorna a lista de Alunos cadastrados no banco de dados
+    public List<Aluno> getLista(){
+
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABELA + ";", null);
+
+        while (cursor.moveToNext()){
+            Aluno aluno = new Aluno();
+
+            aluno.setId(cursor.getLong(cursor.getColumnIndex("id")));
+            aluno.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+            aluno.setTelefone(cursor.getString(cursor.getColumnIndex("telefone")));
+            aluno.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
+            aluno.setSite(cursor.getString(cursor.getColumnIndex("site")));
+            aluno.setNota(cursor.getDouble(cursor.getColumnIndex("nota")));
+
+            alunos.add(aluno);
+        }
+        cursor.close();
+        return alunos;
     }
 }

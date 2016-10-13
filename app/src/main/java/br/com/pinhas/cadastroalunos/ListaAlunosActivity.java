@@ -10,21 +10,22 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.pinhas.cadastroalunos.dao.AlunoDAO;
+import br.com.pinhas.cadastroalunos.modelo.Aluno;
+
 public class ListaAlunosActivity extends AppCompatActivity {
 
     private ListView minhaLista;
-    private ArrayAdapter<String> adapter;
     private Button botao;
+    private List<Aluno> alunos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
-
-        //preenchendo a lista com um vetor de Strings
-        String[] alunos = {"Gabriel", "Felipe", "Edward"};
-        this.minhaLista = (ListView) findViewById(R.id.lista_alunos);
-        this.adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
-        this.minhaLista.setAdapter(adapter);
 
         //criando um evento de click em um item da lista
         this.minhaLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -53,5 +54,23 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.getListaAlunos();
+    }
+
+    private void getListaAlunos(){
+        //retornando a lista de Alunos cadastrados no banco de dados
+        AlunoDAO dao = new AlunoDAO(this);
+        alunos = dao.getLista();
+        dao.close();
+
+        //populando a lista com os Alunos cadastrados no banco de dados
+        minhaLista = (ListView) findViewById(R.id.lista_alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno> (this, android.R.layout.simple_list_item_1, alunos);
+        minhaLista.setAdapter(adapter);
     }
 }

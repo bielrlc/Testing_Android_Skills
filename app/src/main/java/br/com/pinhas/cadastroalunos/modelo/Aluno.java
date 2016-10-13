@@ -59,4 +59,10 @@ public class Aluno {
     public void setNota(Double nota) {
         this.nota = nota;
     }
+
+    //configurando a saída de dados da Lista de Alunos
+    @Override
+    public String toString() {
+        return getId() + " - " + getNome();
+    }
 }
